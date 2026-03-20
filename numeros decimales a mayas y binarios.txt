@@ -1,0 +1,30 @@
+De decimal a maya
+
+n=int(input("Escriba un numero: "))
+
+while n>0:
+    residuo=n%20
+    n=n//20
+    
+    if residuo==0:
+        print("Φ")
+    else:
+        barras=residuo//5
+        puntos=residuo%5
+        
+        print("-" * barras + "°" * puntos)
+
+
+
+De decimal a binario
+
+n = int(input("Ingresa un número decimal: "))
+
+binario = ""
+
+while n > 0:
+    residuo = n % 2
+    binario = str(residuo) + binario
+    n = n // 2
+
+print("Binario:", binario)
