@@ -1,0 +1,83 @@
+#fruta=["fresa", "mango", "manzana"]
+#numeros=[1,2,3,4,5,6,7,8]
+#mixto=["fresa",1,2,"manzana"]
+
+#print(fruta[0])
+
+#fruta=["fresa", "mango", "manzana"]
+#numeros=[1,2,3,4,5,6,7,8]
+#mixto=["fresa",1,2,"manzana"]
+
+#fruta[0]="Pera"
+#fruta[1]="Mandarina"
+
+#nuevo=input("ingrese nuevo nombre: ")
+
+#fruta[2]=nuevo
+
+#print(fruta)
+
+#fruta=["fresa", "mango", "manzana"]
+#numeros=[1,2,3,4,5,6,7,8]
+#mixto=["fresa",1,2,"manzana"]
+
+#fruta.append("Banano")
+
+#print(fruta)
+
+#fruta.pop()
+
+#print(fruta)
+
+#fruta.pop(1)
+
+#print(fruta)
+
+#numeros=[1,2,3,4,5,6,7,8]
+
+#for i in numeros:
+#print(i)
+    
+#numeros=[34,95,2,8,19,-7]
+
+#for i in numeros:
+#print(i)
+    
+#numeros=[19,2,20,26,4,8,7,58,43,19]
+
+#contador=0
+
+#for i in numeros:
+    #if i%2==0:
+        #contador=contador+1
+#print(contador)
+    
+#numeros=[45,25,-6,8,9,-6]
+
+#impares=[]
+
+#for i in numeros:
+    #if i%2!=0:
+        #impares.append(i)
+#print(impares)
+        
+numeros=[45,25,-6,8,9,-10]
+
+impares=[]
+pares=[]
+
+for i in numeros:
+    if i%2!=0:
+        impares.append(i)
+print(impares)
+
+contador=impares[0]
+for i in impares:
+    if contador!=[3]
+    contador=contador+impares[1]
+print(contador)
+    
+for i in numeros:
+    if i%2==0:
+        pares.append(i)
+print(pares)
