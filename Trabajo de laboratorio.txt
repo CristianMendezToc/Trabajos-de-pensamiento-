@@ -1,0 +1,25 @@
+Trabajo de laboratorio
+
+
+#Ejercicio 1
+
+tamaños=int(input("ingresar el tamaño del arreglo: "))
+NBase=int(input("ingresar numero base para el arreglo: "))
+
+arreglo=[]
+
+for i in range(0,tamaños):
+    #arreglo.append(i*NBase)
+    
+print("El arreglon es: ", arreglo)
+
+#Ejercicio 2(no terminado)
+
+tamaños=int(input("ingresar el tamaño del arreglo: "))
+NBase1=int(input("ingresar nombres para el arreglo: "))
+
+arreglo_1=[]
+
+arreglo_1.append(NBase1)
+
+arreglo_2=[]
