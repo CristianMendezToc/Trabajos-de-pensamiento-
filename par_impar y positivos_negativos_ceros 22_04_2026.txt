@@ -1,0 +1,44 @@
+
+#pares e impares
+def pares_impares(lista):
+    pares=0
+    impares=0
+    for i in lista:
+        if i%2==0:
+            pares=pares+1
+        else:
+            impares=impares+1
+    print(f"hay {pares } pares, y {impares } impares")
+        
+def positivos_negativos(lista):
+    pass
+n=int(input("ingrese tamaño de la lista: "))
+lista=[]
+
+for i in range(n):
+    datos=int(input("ingrese datos: "))
+    lista.append(datos)
+pares_impares(lista)
+
+#hacer positivos, negativos y ceros
+
+def positivos_negativos(lista):
+    positivos=0
+    negativos=0
+    ceros=0
+    for i in lista:
+        if i>0:
+            positivos=positivos+1
+        elif i<0:
+            negativos=negativos+1
+        else:
+            ceros=ceros+1
+    print(f"hay {positivos } positivos,  {negativos } negativos, y {ceros } ceros ")
+
+n=int(input("ingrese tamaño de la lista: "))
+lista=[]
+
+for i in range(n):
+    datos=int(input("ingrese datos: "))
+    lista.append(datos)
+positivos_negativos(lista)
