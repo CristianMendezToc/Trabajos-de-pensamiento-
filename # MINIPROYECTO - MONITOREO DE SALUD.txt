@@ -1,0 +1,389 @@
+# MINIPROYECTO - MONITOREO DE SALUD
+# Uso de Python y Tkinter
+
+import tkinter as tk
+from tkinter import messagebox
+
+# =========================================
+# FUNCIONES
+# =========================================
+
+def clasificar_presion(sistolica, diastolica):
+
+    if sistolica < 120 and diastolica < 80:
+        return "Normal"
+
+    elif 120 <= sistolica <= 129 and diastolica < 80:
+        return "Elevada"
+
+    elif (130 <= sistolica <= 139) or (80 <= diastolica <= 89):
+        return "Hipertensión Etapa 1"
+
+    elif sistolica >= 140 or diastolica >= 90:
+        return "Hipertensión Etapa 2"
+
+    else:
+        return "No clasificada"
+
+
+def evaluar_datos():
+
+    resultado.delete(1.0, tk.END)
+
+    # ============================
+    # LISTAS
+    # ============================
+
+    dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]
+
+    niveles_azucar = []
+    niveles_sal = []
+    sistolica_lista = []
+    diastolica_lista = []
+
+    # ============================
+    # OBTENER DATOS
+    # ============================
+
+    entradas_azucar = [
+        entrada_azucar1,
+        entrada_azucar2,
+        entrada_azucar3,
+        entrada_azucar4,
+        entrada_azucar5
+    ]
+
+    entradas_sal = [
+        entrada_sal1,
+        entrada_sal2,
+        entrada_sal3,
+        entrada_sal4,
+        entrada_sal5
+    ]
+
+    entradas_sistolica = [
+        entrada_sis1,
+        entrada_sis2,
+        entrada_sis3,
+        entrada_sis4,
+        entrada_sis5
+    ]
+
+    entradas_diastolica = [
+        entrada_dia1,
+        entrada_dia2,
+        entrada_dia3,
+        entrada_dia4,
+        entrada_dia5
+    ]
+
+    try:
+
+        for i in range(5):
+
+            azucar = int(entradas_azucar[i].get())
+            sal = int(entradas_sal[i].get())
+            sistolica = int(entradas_sistolica[i].get())
+            diastolica = int(entradas_diastolica[i].get())
+
+            niveles_azucar.append(azucar)
+            niveles_sal.append(sal)
+            sistolica_lista.append(sistolica)
+            diastolica_lista.append(diastolica)
+
+    except:
+        messagebox.showerror(
+            "Error",
+            "Ingrese únicamente números"
+        )
+        return
+
+    # ============================
+    # VARIABLES PARA PROMEDIOS
+    # ============================
+
+    suma_azucar = 0
+    suma_sal = 0
+    suma_sistolica = 0
+    suma_diastolica = 0
+
+    # ============================
+    # EVALUACIÓN
+    # ============================
+
+    for i in range(5):
+
+        dia = dias[i]
+
+        azucar = niveles_azucar[i]
+        sal = niveles_sal[i]
+        sistolica = sistolica_lista[i]
+        diastolica = diastolica_lista[i]
+
+        suma_azucar += azucar
+        suma_sal += sal
+        suma_sistolica += sistolica
+        suma_diastolica += diastolica
+
+        resultado.insert(tk.END, f"\n===== {dia} =====\n")
+
+        # ------------------------
+        # AZÚCAR
+        # ------------------------
+
+        resultado.insert(
+            tk.END,
+            f"Azúcar: {azucar} mg/dL\n"
+        )
+
+        if 70 <= azucar <= 140:
+            resultado.insert(
+                tk.END,
+                "Azúcar dentro del rango normal\n"
+            )
+        else:
+            resultado.insert(
+                tk.END,
+                "ALERTA: Azúcar fuera del rango saludable\n"
+            )
+
+        # ------------------------
+        # SAL
+        # ------------------------
+
+        resultado.insert(
+            tk.END,
+            f"Sal consumida: {sal} mg\n"
+        )
+
+        if sal <= 2300:
+            resultado.insert(
+                tk.END,
+                "Consumo de sal NORMAL\n"
+            )
+        else:
+            resultado.insert(
+                tk.END,
+                "ALERTA: Exceso de consumo de sal\n"
+            )
+
+        # ------------------------
+        # PRESIÓN
+        # ------------------------
+
+        categoria = clasificar_presion(
+            sistolica,
+            diastolica
+        )
+
+        resultado.insert(
+            tk.END,
+            f"Presión arterial: "
+            f"{sistolica}/{diastolica} mmHg\n"
+        )
+
+        resultado.insert(
+            tk.END,
+            f"Clasificación: {categoria}\n"
+        )
+
+        if categoria == "Normal":
+            resultado.insert(
+                tk.END,
+                "Presión arterial NORMAL\n"
+            )
+        else:
+            resultado.insert(
+                tk.END,
+                "ALERTA: Requiere atención médica\n"
+            )
+
+    # ============================
+    # PROMEDIOS
+    # ============================
+
+    promedio_azucar = suma_azucar / 5
+    promedio_sal = suma_sal / 5
+    promedio_sistolica = suma_sistolica / 5
+    promedio_diastolica = suma_diastolica / 5
+
+    resultado.insert(tk.END, "\n========================\n")
+    resultado.insert(tk.END, "PROMEDIOS SEMANALES\n")
+    resultado.insert(tk.END, "========================\n")
+
+    resultado.insert(
+        tk.END,
+        f"Promedio azúcar: "
+        f"{promedio_azucar:.2f} mg/dL\n"
+    )
+
+    resultado.insert(
+        tk.END,
+        f"Promedio sal: "
+        f"{promedio_sal:.2f} mg\n"
+    )
+
+    resultado.insert(
+        tk.END,
+        f"Promedio presión: "
+        f"{promedio_sistolica:.2f}/"
+        f"{promedio_diastolica:.2f} mmHg\n"
+    )
+
+    messagebox.showinfo(
+        "Proceso terminado",
+        "Evaluación completada correctamente"
+    )
+
+# =========================================
+# VENTANA
+# =========================================
+
+ventana = tk.Tk()
+ventana.title("Monitoreo de Salud")
+ventana.geometry("950x700")
+ventana.config(bg="lightblue")
+
+titulo = tk.Label(
+    ventana,
+    text="Sistema de Monitoreo de Salud",
+    font=("Arial", 18, "bold"),
+    bg="lightblue"
+)
+
+titulo.pack(pady=10)
+
+# =========================================
+# TABLA DE ENTRADAS
+# =========================================
+
+marco = tk.Frame(ventana, bg="lightblue")
+marco.pack()
+
+encabezados = [
+    "Día",
+    "Azúcar",
+    "Sal",
+    "Sistólica",
+    "Diastólica"
+]
+
+for i in range(len(encabezados)):
+    tk.Label(
+        marco,
+        text=encabezados[i],
+        font=("Arial", 10, "bold"),
+        bg="lightblue"
+    ).grid(row=0, column=i, padx=10, pady=5)
+
+dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]
+
+for i in range(5):
+    tk.Label(
+        marco,
+        text=dias[i],
+        bg="lightblue"
+    ).grid(row=i+1, column=0)
+
+# =========================================
+# ENTRADAS
+# =========================================
+
+entrada_azucar1 = tk.Entry(marco)
+entrada_azucar2 = tk.Entry(marco)
+entrada_azucar3 = tk.Entry(marco)
+entrada_azucar4 = tk.Entry(marco)
+entrada_azucar5 = tk.Entry(marco)
+
+entrada_sal1 = tk.Entry(marco)
+entrada_sal2 = tk.Entry(marco)
+entrada_sal3 = tk.Entry(marco)
+entrada_sal4 = tk.Entry(marco)
+entrada_sal5 = tk.Entry(marco)
+
+entrada_sis1 = tk.Entry(marco)
+entrada_sis2 = tk.Entry(marco)
+entrada_sis3 = tk.Entry(marco)
+entrada_sis4 = tk.Entry(marco)
+entrada_sis5 = tk.Entry(marco)
+
+entrada_dia1 = tk.Entry(marco)
+entrada_dia2 = tk.Entry(marco)
+entrada_dia3 = tk.Entry(marco)
+entrada_dia4 = tk.Entry(marco)
+entrada_dia5 = tk.Entry(marco)
+
+# Posiciones
+
+entradas_azucar = [
+    entrada_azucar1,
+    entrada_azucar2,
+    entrada_azucar3,
+    entrada_azucar4,
+    entrada_azucar5
+]
+
+entradas_sal = [
+    entrada_sal1,
+    entrada_sal2,
+    entrada_sal3,
+    entrada_sal4,
+    entrada_sal5
+]
+
+entradas_sis = [
+    entrada_sis1,
+    entrada_sis2,
+    entrada_sis3,
+    entrada_sis4,
+    entrada_sis5
+]
+
+entradas_dia = [
+    entrada_dia1,
+    entrada_dia2,
+    entrada_dia3,
+    entrada_dia4,
+    entrada_dia5
+]
+
+for i in range(5):
+
+    entradas_azucar[i].grid(row=i+1, column=1)
+    entradas_sal[i].grid(row=i+1, column=2)
+    entradas_sis[i].grid(row=i+1, column=3)
+    entradas_dia[i].grid(row=i+1, column=4)
+
+# =========================================
+# BOTÓN
+# =========================================
+
+boton = tk.Button(
+    ventana,
+    text="Evaluar Datos",
+    font=("Arial", 12),
+    bg="green",
+    fg="white",
+    command=evaluar_datos
+)
+
+boton.pack(pady=15)
+
+# =========================================
+# ÁREA DE RESULTADOS
+# =========================================
+
+resultado = tk.Text(
+    ventana,
+    width=100,
+    height=20,
+    font=("Consolas", 10)
+)
+
+resultado.pack(pady=10)
+
+# =========================================
+# EJECUTAR
+# =========================================
+
+ventana.mainloop()
